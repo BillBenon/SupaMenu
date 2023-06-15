@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Roboto_400Regular,
+  Roboto_400Regular_Italic,
+  Roboto_700Bold,
+  useFonts,
+} from '@expo-google-fonts/roboto';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import 'react-native-gesture-handler';
+import SplashScreen from './src/screens/Splash';
+import Navigator from './src/components/navigation/Navigator';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  // silence react native eror on navigation
+  let [fontsLoaded] = useFonts({
+      Roboto_400Regular,
+      Roboto_700Bold,
+      Roboto_400Regular_Italic,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded) {
+      return <SplashScreen />;
+  } else {
+      return (
+          <NavigationContainer>
+              <Navigator/>
+          </NavigationContainer>
+      );
+  }
+}
